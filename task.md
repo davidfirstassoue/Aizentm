@@ -1,0 +1,14 @@
+- [x] Initialisation du projet Next.js
+- [x] Configuration du Design System (Montserrat, CSS Variables Canal+)
+- [x] Création de la Page d'Accueil
+    - [x] Section Bannière immersive
+    - [x] Carte Interactive de l'Afrique (SVG)
+- [x] Implémentation du Routage Régional
+    - [x] Middleware de détection de pays (renommé `proxy.ts` en Next 16)
+    - [x] Template de Page Régionale Localisée
+- [x] Peaufinage et Mode Sombre/Clair Dynamique
+- [ ] **Phase 2 : Peaufinage & Expérience Premium**
+    - [ ] Mise en place du Curseur Personnalisé (Style Canal+)
+    - [x] Animations de révélation Framer Motion (Titres & Cartes)
+    - [ ] Génération de visuels HD pour le Showcase (vrais assets)
+    - [ ] Transition immersive "Swipe" entre Hero et Carte
