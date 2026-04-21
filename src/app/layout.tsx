@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Aizen — Automatisation IA & Web Studio",
   description:
-    "Agence spécialisée dans la mise en place d'automatisations avec des agents IA et la création de sites internet pour les PME africaines.",
+    "Agence spécialisée dans la mise en place d'automatisations avec des agents IA et la création de sites internet pour les entreprises.",
   icons: {
     icon: "/icon.jpeg",
   },

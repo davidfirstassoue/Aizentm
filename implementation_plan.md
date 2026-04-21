@@ -1,32 +1,35 @@
-# Implementation Plan: Navbar Scroll Transition
+# Plan d'implémentation : Animation "Shine" (Lueur) sur les boutons
 
-Transition the navbar branding from the text "AIZEN" to the logo asset based on the user's scroll position.
+Ce plan décrit l'ajout d'une animation de lueur périodique (Glint/Shine) sur tous les boutons du site (`cp-solid-btn` et `cp-outline-btn`) pour attirer l'attention des utilisateurs et augmenter le taux de conversion.
 
-## User Review Required
+## Objectif
+Ajouter un effet visuel premium et discret qui simule un reflet de lumière traversant le bouton toutes les 4 secondes.
 
-> [!IMPORTANT]
-> - **Threshold**: The transition will occur after 50px of scroll.
-> - **Animation Type**: A smooth cross-fade + slight vertical slide using Framer Motion.
-> - **Font Styling**: I will use the `text-cinematic` style for the "AIZEN" text to match the previous design language.
+## Changements Proposés
 
-## Proposed Changes
+### [CSS] Modification de `globals.css`
 
-### Components
+#### [MODIFY] [globals.css](file:///c:/Users/david/Downloads/Aizen%20TM/src/app/globals.css)
 
-#### [MODIFY] [Navbar.tsx](file:///c:/Users/david/Downloads/Aizen%20TM/src/components/Navbar.tsx)
-- Convert to a client component.
-- Add `useState` and `useEffect` to track the `scrolled` state.
-- Wrap the branding section in Framer Motion's `motion.div` and `AnimatePresence`.
-- Implement conditional rendering between `AIZEN` text and `<Logo />`.
+1.  **Définition des Keyframes** : Créer une animation `button-shine` qui déplace un dégradé de gauche à droite.
+2.  **Styles Partagés** : 
+    - Ajouter `position: relative` et `overflow: hidden` aux classes de boutons si ce n'est pas déjà le cas.
+    - Créer un pseudo-élément `::after` pour les classes `.cp-solid-btn` et `.cp-outline-btn`.
+3.  **Configuration de l'effet** :
+    - Le `::after` sera un rectangle incliné avec un dégradé transparent -> blanc (ou beige) -> transparent.
+    - L'animation tournera en boucle avec un délai (`infinite`).
+    - L'opacité sera ajustée selon le mode (sombre/clair) pour rester subtile.
 
-## Open Questions
+## Détails Techniques de l'Animation
+- **Angle** : 45 degrés pour un look dynamique.
+- **Vitesse** : 1.5s pour la traversée, avec une pause de 2.5s (total cycle 4s).
+- **Couleur** : `rgba(255, 255, 255, 0.4)` en mode sombre, et une version adaptée en mode clair.
 
-- Should the navbar background color or blur change as well during this transition to "sticky" mode?
+## Plan de Vérification
 
-## Verification Plan
-
-### Manual Verification
-1.  Start at the top of the page: verify the text "AIZEN" is visible.
-2.  Scroll down: verify the text fades out and the logo fades in smoothly.
-3.  Scroll back to top: verify the transition reverses correctly.
-4.  Test in both Dark and Light modes to ensure the text and logo colors remain correct.
+### Vérification Manuelle
+- [ ] Vérifier que l'animation fonctionne sur le bouton "Audit gratuit" (Hero).
+- [ ] Vérifier que l'animation fonctionne sur les boutons des cartes de prix.
+- [ ] Tester le rendu en **Mode Sombre** (reflet blanc sur bouton blanc ou noir).
+- [ ] Tester le rendu en **Mode Clair** (reflet discret sur bouton noir ou beige).
+- [ ] S'assurer que l'animation ne gêne pas la lisibilité du texte pendant son passage.

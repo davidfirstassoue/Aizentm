@@ -15,7 +15,7 @@ L'image de la page d'accueil présente une structure "Hub" centrée sur le conti
 *   **Hero Regional** : Titre personnalisé et bouton d'action immédiat.
 *   **Grille de Services (Pricing)** : Grille à 4 colonnes (Site Pro, Cyber+, Odoo Cloud, Serveur Dédié).
 *   **Section Inclusions** : Bloc large avec dégradé listant les avantages ("+ pratique", "+ sécurisé", etc.).
-*   **Preuve Sociale** : Section "Aizen ❤️ l'innovation" sous forme de grille d'images (style éditorial).
+*   **Preuve Sociale** : Section "Aizen l'innovation" sous forme de grille d'images (style éditorial).
 
 ## 2. ADN Visuel & Technique (Canal+ Reconstitué)
 

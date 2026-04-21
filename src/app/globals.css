@@ -68,11 +68,20 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 img {
   display: block;
   max-width: 100%;
+}
+
+@utility col-content {
+  grid-column: 2 / -2;
+}
+
+@utility col-narrow {
+  grid-column: 3 / -3;
 }
 
 @utility display-grid {
@@ -182,6 +191,136 @@ img {
 .theme-light .cp-outline-btn:hover {
   background: hsla(0, 0%, 0%, 0.04);
 }
+
+.cp-solid-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 48px;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-ui), transform var(--transition-bounce), background-color var(--transition-ui), color var(--transition-ui), box-shadow var(--transition-bounce);
+}
+
+.cp-solid-btn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--text) 20%, transparent);
+}
+
+.theme-light .cp-solid-btn:hover {
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+.cp-solid-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-ui), transform var(--transition-bounce), background-color var(--transition-ui), color var(--transition-ui), box-shadow var(--transition-bounce);
+}
+
+.cp-solid-btn-sm:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--text) 20%, transparent);
+}
+
+.theme-light .cp-solid-btn-sm:hover {
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+/* ── Button Shine Animation ─────────────────────────────────────── */
+
+@keyframes button-shine {
+  0%    { transform: translateX(-100%) skewX(-20deg); }
+  37.5% { transform: translateX(300%) skewX(-20deg); }
+  100%  { transform: translateX(300%) skewX(-20deg); }
+}
+
+.cp-solid-btn,
+.cp-solid-btn-sm,
+.cp-outline-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-solid-btn::after,
+.cp-solid-btn-sm::after,
+.cp-outline-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transform: translateX(-100%) skewX(-20deg);
+  animation: button-shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Dark mode — boutons solides sont blancs → reflet sombre */
+.cp-solid-btn::after,
+.cp-solid-btn-sm::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.14),
+    transparent
+  );
+}
+
+/* Dark mode — bouton outline est transparent → reflet blanc */
+.cp-outline-btn::after {
+  animation-delay: 1.3s;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+}
+
+/* Light mode — boutons solides sont sombres → reflet blanc */
+.theme-light .cp-solid-btn::after,
+.theme-light .cp-solid-btn-sm::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+}
+
+/* Light mode — outline transparent sur fond beige → reflet très discret */
+.theme-light .cp-outline-btn::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.07),
+    transparent
+  );
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
 
 .cp-nav-wrap {
   position: fixed;
