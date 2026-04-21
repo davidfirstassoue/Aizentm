@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Aizen — Automatisation IA & Web Studio",
   description:
     "Agence spécialisée dans la mise en place d'automatisations avec des agents IA et la création de sites internet pour les PME africaines.",
+  icons: {
+    icon: "/icon.jpeg",
+  },
 };
 
 const themeInitScript = `
