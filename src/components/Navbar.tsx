@@ -29,7 +29,7 @@ export function Navbar() {
                 {!scrolled ? (
                   <motion.span
                     key="text"
-                    className="text-cinematic text-[20px] md:text-[28px] tracking-[0.15em] text-[color:var(--text)] absolute inset-0 flex items-center"
+                    className="text-cinematic text-[20px] md:text-[28px] tracking-tight text-[color:var(--text)] absolute inset-0 flex items-center"
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 6 }}
