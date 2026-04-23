@@ -7,29 +7,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
 
-// Home: Expertise → Nos agents IA → Régions → Contact → FAQ
+// Home: Expertise → Régions → Nos agents IA → Contact → FAQ
 const HOME_LINKS = [
   { label: "Expertise",      href: "/#expertise" },
-  { label: "Nos agents IA",  href: "/#agents" },
   { label: "Régions",        href: "/#map" },
+  { label: "Nos agents IA",  href: "/#agents" },
   { label: "Contact",        href: "/#contact" },
   { label: "FAQ",            href: "/#faq" },
 ];
 
-// Country (FR): Expertise → Forfaits → Contact → Devis
+// Country (FR): Expertise → Nos agents IA → Forfaits → Contact → FAQ
 const COUNTRY_LINKS_FR = [
-  { label: "Expertise", href: "#expertise" },
-  { label: "Forfaits",  href: "#pricing" },
-  { label: "Contact",   href: "#contact" },
-  { label: "Devis",     href: "#contact" },
+  { label: "Expertise",     href: "#expertise" },
+  { label: "Nos agents IA", href: "#agents" },
+  { label: "Forfaits",      href: "#pricing" },
+  { label: "Contact",       href: "#contact" },
+  { label: "FAQ",           href: "#faq" },
 ];
 
-// Country (EN): Expertise → Plans → Contact → Quote
+// Country (EN): Expertise → AI Agents → Plans → Contact → FAQ
 const COUNTRY_LINKS_EN = [
-  { label: "Expertise", href: "#expertise" },
-  { label: "Plans",     href: "#pricing" },
-  { label: "Contact",   href: "#contact" },
-  { label: "Quote",     href: "#contact" },
+  { label: "Expertise",  href: "#expertise" },
+  { label: "AI Agents",  href: "#agents" },
+  { label: "Plans",      href: "#pricing" },
+  { label: "Contact",    href: "#contact" },
+  { label: "FAQ",        href: "#faq" },
 ];
 
 const OBSERVER_OPTIONS: IntersectionObserverInit = {
@@ -104,7 +106,7 @@ export function Navbar() {
   return (
     <header className="cp-nav-wrap">
       <nav className="display-grid items-center">
-        <div style={{ gridColumn: "2 / span 3" }}>
+        <div style={{ gridColumn: "2 / span 2" }}>
           <Link
             href="/"
             className="flex items-center no-underline text-[color:var(--text)] hover:opacity-80 transition-opacity"
@@ -141,8 +143,8 @@ export function Navbar() {
         </div>
 
         <ul
-          className="hidden md:flex items-center gap-8 justify-center"
-          style={{ gridColumn: "5 / span 6" }}
+          className="hidden md:flex items-center gap-6 justify-center"
+          style={{ gridColumn: "4 / span 8" }}
         >
           {links.map((link) => {
             const id = hrefToId(link.href);
@@ -164,7 +166,7 @@ export function Navbar() {
 
         <div
           className="flex items-center justify-end gap-3"
-          style={{ gridColumn: "11 / span 3" }}
+          style={{ gridColumn: "12 / span 2" }}
         >
           <ThemeToggle />
         </div>

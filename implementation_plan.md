@@ -1,35 +1,45 @@
-# Plan d'implémentation : Animation "Shine" (Lueur) sur les boutons
+# Plan d'implémentation : Formulaire de Capture avant Chat IA
 
-Ce plan décrit l'ajout d'une animation de lueur périodique (Glint/Shine) sur tous les boutons du site (`cp-solid-btn` et `cp-outline-btn`) pour attirer l'attention des utilisateurs et augmenter le taux de conversion.
+Ce plan détaille l'ajout d'une étape de qualification (nom, entreprise, email, téléphone) avant de permettre à l'utilisateur de communiquer avec l'agent IA, qui gérera désormais aussi les rendez-vous.
 
-## Objectif
-Ajouter un effet visuel premium et discret qui simule un reflet de lumière traversant le bouton toutes les 4 secondes.
+## Proposed Changes
 
-## Changements Proposés
+### 1. Composants UI
 
-### [CSS] Modification de `globals.css`
+#### [NEW] [src/components/ChatGateForm.tsx](file:///c:/Users/david/Downloads/Aizentm-main/Aizentm-main/src/components/ChatGateForm.tsx)
+- Créer un formulaire premium avec les champs :
+    - Nom et prénom complet
+    - Entreprise
+    - Email
+    - Numéro de téléphone
+- Validation des champs (requis, format email).
+- Design cinématique assorti à l'identité visuelle d'AIZEN.
+- Fonction de sauvegarde dans le `localStorage` pour éviter de redemander les infos à chaque session.
 
-#### [MODIFY] [globals.css](file:///c:/Users/david/Downloads/Aizen%20TM/src/app/globals.css)
+#### [MODIFY] [src/components/ContactHub.tsx](file:///c:/Users/david/Downloads/Aizentm-main/Aizentm-main/src/components/ContactHub.tsx)
+- Ajouter le bouton "Prendre rendez-vous" sur la carte 02.
+- Faire pointer ce bouton vers `/chat?source=booking`.
 
-1.  **Définition des Keyframes** : Créer une animation `button-shine` qui déplace un dégradé de gauche à droite.
-2.  **Styles Partagés** : 
-    - Ajouter `position: relative` et `overflow: hidden` aux classes de boutons si ce n'est pas déjà le cas.
-    - Créer un pseudo-élément `::after` pour les classes `.cp-solid-btn` et `.cp-outline-btn`.
-3.  **Configuration de l'effet** :
-    - Le `::after` sera un rectangle incliné avec un dégradé transparent -> blanc (ou beige) -> transparent.
-    - L'animation tournera en boucle avec un délai (`infinite`).
-    - L'opacité sera ajustée selon le mode (sombre/clair) pour rester subtile.
+### 2. Page Chat
 
-## Détails Techniques de l'Animation
-- **Angle** : 45 degrés pour un look dynamique.
-- **Vitesse** : 1.5s pour la traversée, avec une pause de 2.5s (total cycle 4s).
-- **Couleur** : `rgba(255, 255, 255, 0.4)` en mode sombre, et une version adaptée en mode clair.
+#### [MODIFY] [src/app/chat/page.tsx](file:///c:/Users/david/Downloads/Aizentm-main/Aizentm-main/src/app/chat/page.tsx)
+- Ajouter une logique de conditionnement :
+    - Si les infos de l'utilisateur ne sont pas connues (pas en session/localStorage), afficher `ChatGateForm`.
+    - Une fois validé, afficher l'interface de chat existante.
+- Optionnel : Envoyer les infos du lead à n8n lors du premier message pour que l'agent sache à qui il parle.
 
-## Plan de Vérification
+### 3. Libs & Hooks
 
-### Vérification Manuelle
-- [ ] Vérifier que l'animation fonctionne sur le bouton "Audit gratuit" (Hero).
-- [ ] Vérifier que l'animation fonctionne sur les boutons des cartes de prix.
-- [ ] Tester le rendu en **Mode Sombre** (reflet blanc sur bouton blanc ou noir).
-- [ ] Tester le rendu en **Mode Clair** (reflet discret sur bouton noir ou beige).
-- [ ] S'assurer que l'animation ne gêne pas la lisibilité du texte pendant son passage.
+#### [MODIFY] [src/hooks/useChat.ts](file:///c:/Users/david/Downloads/Aizentm-main/Aizentm-main/src/hooks/useChat.ts)
+- Étendre le hook pour accepter des métadonnées (nom, entreprise, etc.) lors de l'envoi du premier message ou lors de l'initialisation de la session.
+
+## Verification Plan
+
+### Automated Verification
+- Tester que la page `/chat` affiche bien le formulaire par défaut.
+- Vérifier que le bouton "Envoyer" du formulaire n'est actif que si les champs sont valides.
+- Vérifier que l'interface de chat apparaît après la validation.
+
+### Manual Verification
+- Saisir des informations de test et vérifier qu'elles sont conservées dans le localStorage.
+- Vérifier que le bouton "Rendez-vous" sur la home redirige correctement vers le chat.

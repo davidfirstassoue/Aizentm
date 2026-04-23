@@ -4,11 +4,27 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 import { AnimatePresence, motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { useChat, type Message } from "@/hooks/useChat";
+import { ChatGateForm, loadLead, type LeadInfo } from "@/components/ChatGateForm";
 
 const ERROR_COLOR = "#E57373";
 
 export default function ChatPage() {
-  const { messages, isLoading, sendMessage, clearMessages } = useChat();
+  const [lead, setLead] = useState<LeadInfo | null>(null);
+  const [gateChecked, setGateChecked] = useState(false);
+
+  useEffect(() => {
+    setLead(loadLead());
+    setGateChecked(true);
+  }, []);
+
+  if (!gateChecked) return null;
+  if (!lead) return <ChatGateForm onComplete={setLead} />;
+
+  return <ChatInterface lead={lead} />;
+}
+
+function ChatInterface({ lead }: { lead: LeadInfo }) {
+  const { messages, isLoading, sendMessage, clearMessages } = useChat(lead);
   const [input, setInput] = useState("");
   const listRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);

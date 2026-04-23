@@ -13,14 +13,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Message vide" }, { status: 400 });
     }
 
+    const lead = body.lead ?? null;
+
     const res = await fetch(N8N_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        chatInput: message, // Format standard
-        input: message,     // Souvent attendu par AI Agent
-        message: message,   // Commun
-        sessionId 
+      body: JSON.stringify({
+        chatInput: message,
+        input: message,
+        message: message,
+        sessionId,
+        ...(lead ? { lead } : {}),
       }),
     });
 

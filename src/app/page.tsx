@@ -54,8 +54,6 @@ export default function Home() {
 
       <WhyAizen lang={lang} />
 
-      <AgentsAtWork lang={lang} />
-
       <section id="map" className="py-[40px] md:py-[80px]">
         <div className="display-grid">
           <div style={{ gridColumn: "2 / -2" }} className="text-center mb-8 md:mb-20">
@@ -79,6 +77,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AgentsAtWork lang={lang} />
 
       <ContactHub lang={lang} />
 

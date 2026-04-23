@@ -11,15 +11,23 @@ export interface Message {
   timestamp: number;
 }
 
+export interface LeadMetadata {
+  fullName: string;
+  company: string;
+  email: string;
+  phone: string;
+}
+
 function newId() {
   return typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-export function useChat() {
+export function useChat(lead?: LeadMetadata) {
   const sessionIdRef = useRef<string>("");
   if (!sessionIdRef.current) sessionIdRef.current = newId();
+  const isFirstMessageRef = useRef(true);
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +45,9 @@ export function useChat() {
     setMessages((m) => [...m, userMsg]);
     setIsLoading(true);
 
+    const isFirst = isFirstMessageRef.current;
+    if (isFirst) isFirstMessageRef.current = false;
+
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
@@ -44,6 +55,7 @@ export function useChat() {
         body: JSON.stringify({
           sessionId: sessionIdRef.current,
           message: trimmed,
+          ...(isFirst && lead ? { lead } : {}),
         }),
       });
 
@@ -83,6 +95,7 @@ export function useChat() {
   const clearMessages = useCallback(() => {
     setMessages([]);
     sessionIdRef.current = newId();
+    isFirstMessageRef.current = true;
   }, []);
 
   return { messages, isLoading, sendMessage, clearMessages };

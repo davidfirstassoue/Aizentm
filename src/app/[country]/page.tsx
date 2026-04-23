@@ -126,9 +126,9 @@ export default async function CountryPage({
 
       <AgentsAtWork lang={lang} />
 
-      <ContactHub lang={lang} />
-
       <PricingSection lang={lang} />
+
+      <ContactHub lang={lang} />
 
       <section className="py-[40px] md:py-[80px]">
         <div className="display-grid">

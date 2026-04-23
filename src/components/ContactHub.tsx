@@ -12,6 +12,11 @@ const CHAT_CTA = {
   en: "Start chat →",
 } as const;
 
+const BOOKING_CTA = {
+  fr: "Prendre rendez-vous →",
+  en: "Book a call →",
+} as const;
+
 export function ContactHub({ lang }: { lang: Lang }) {
   const copy = t(lang).contact;
 
@@ -39,6 +44,7 @@ export function ContactHub({ lang }: { lang: Lang }) {
         >
           {copy.cards.map((card, idx) => {
             const isChat = idx === 0;
+            const isBooking = idx === 1;
             const isEmail = idx === 2;
             return (
               <Reveal key={card.title} delay={0.2 + idx * 0.1}>
@@ -61,6 +67,15 @@ export function ContactHub({ lang }: { lang: Lang }) {
                       className="cp-outline-btn w-full justify-center text-center"
                     >
                       {CHAT_CTA[lang]}
+                    </Link>
+                  )}
+
+                  {isBooking && (
+                    <Link
+                      href="/chat?source=booking"
+                      className="cp-outline-btn w-full justify-center text-center"
+                    >
+                      {BOOKING_CTA[lang]}
                     </Link>
                   )}
 
